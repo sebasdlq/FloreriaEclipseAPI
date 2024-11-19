@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Data
 @AllArgsConstructor @NoArgsConstructor
@@ -17,4 +18,6 @@ public class FlorDto {
     private int stock;
 
     private Long origenId;
+
+    private List<AtributoDto> atributos;
 }

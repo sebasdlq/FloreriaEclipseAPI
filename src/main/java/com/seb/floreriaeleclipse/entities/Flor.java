@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Entity
 @Data @AllArgsConstructor @NoArgsConstructor
@@ -24,4 +25,11 @@ public class Flor {
     @OneToOne
     @JoinColumn(name = "origen-id", referencedColumnName = "id")
     Lugar lugarDeOrigen;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "atributos_flores",
+            joinColumns = @JoinColumn(name = "flor_id"),
+            inverseJoinColumns = @JoinColumn(name = "atributo_id"))
+    List<Atributos> atributos;
 }
