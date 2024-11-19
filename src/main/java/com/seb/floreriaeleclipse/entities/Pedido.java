@@ -19,4 +19,11 @@ public class Pedido {
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "pedido")
     List<DetallePedido> detallePedidos;
+
+    public void calcularTotal(){
+        total = BigDecimal.ZERO;
+        for(DetallePedido detallePedido : detallePedidos){
+            total = total.add(detallePedido.getSubtotal());
+        }
+    }
 }

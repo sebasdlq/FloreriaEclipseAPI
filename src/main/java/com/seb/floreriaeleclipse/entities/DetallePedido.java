@@ -23,4 +23,8 @@ public class DetallePedido {
     @ManyToOne
     @JoinColumn(name = "pedido-id", referencedColumnName = "id")
     private Pedido pedido;
+
+    public void calcularSubtotal() {
+        subtotal = flor.getPrecio().multiply(new BigDecimal(cantidad));
+    }
 }
