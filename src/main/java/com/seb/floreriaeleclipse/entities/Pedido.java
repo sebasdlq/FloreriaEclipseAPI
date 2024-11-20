@@ -17,7 +17,7 @@ public class Pedido {
     private String codigo;
     private BigDecimal total;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "pedido")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "pedido", cascade = CascadeType.ALL)
     List<DetallePedido> detallePedidos;
 
     public void calcularTotal(){

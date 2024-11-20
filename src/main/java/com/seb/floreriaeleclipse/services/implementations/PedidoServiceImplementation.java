@@ -30,7 +30,7 @@ public class PedidoServiceImplementation implements PedidoService {
     public PedidoDto create(PedidoDto pedidoDto) {
         Pedido newPedido = PedidoMapper.pedidoDtoToPedido(pedidoDto);
         for (int i = 0; i < pedidoDto.getDetalle().size(); i++) {
-            Flor flor = florRepository.findById(pedidoDto.getDetalle().get(i).getId()).orElseThrow(
+            Flor flor = florRepository.findById(pedidoDto.getDetalle().get(i).getFlorId()).orElseThrow(
                     () -> new ResourceNotFoundException("Flor no encontrado " )
             );
             newPedido.getDetallePedidos().get(i).setFlor(flor);
@@ -64,7 +64,7 @@ public class PedidoServiceImplementation implements PedidoService {
         );
         pedido.setCodigo(pedidoDto.getCodigo());
         for (int i = 0; i < pedidoDto.getDetalle().size(); i++) {
-            Flor flor = florRepository.findById(pedidoDto.getDetalle().get(i).getId()).orElseThrow(
+            Flor flor = florRepository.findById(pedidoDto.getDetalle().get(i).getFlorId()).orElseThrow(
                     () -> new ResourceNotFoundException("Flor no encontrado " )
             );
             pedido.getDetallePedidos().get(i).setFlor(flor);
