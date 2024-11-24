@@ -21,9 +21,9 @@ public class LugarServiceImplementation implements LugarService {
     @Override
     public LugarDto createLugar(LugarDto lugarDto) {
         Lugar lugar = new Lugar();
-        lugar.setCiudad(lugarDto.getCiudad());
         lugar.setPais(lugarDto.getPais());
         lugar.setRegion(lugarDto.getRegion());
+        lugar.setCiudad(lugarDto.getCiudad());
         Lugar lugarSaved = lugarRepository.save(lugar);
         return LugarMapper.lugarToDto(lugarSaved);
     }
@@ -47,9 +47,9 @@ public class LugarServiceImplementation implements LugarService {
         Lugar lugar = lugarRepository.findById(lugarDto.getId()).orElseThrow(
                 () -> new ResourceNotFoundException("Lugar no existe, id: " + lugarDto.getId())
         );
-        lugar.setCiudad(lugarDto.getCiudad());
         lugar.setPais(lugarDto.getPais());
         lugar.setRegion(lugarDto.getRegion());
+        lugar.setCiudad(lugarDto.getCiudad());
         Lugar lugarSaved = lugarRepository.save(lugar);
         return LugarMapper.lugarToDto(lugarSaved);
     }
