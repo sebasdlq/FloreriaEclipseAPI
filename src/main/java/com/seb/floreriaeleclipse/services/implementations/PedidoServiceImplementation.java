@@ -4,6 +4,7 @@ import com.seb.floreriaeleclipse.dtos.PedidoDto;
 import com.seb.floreriaeleclipse.entities.Flor;
 import com.seb.floreriaeleclipse.entities.Pedido;
 import com.seb.floreriaeleclipse.exceptions.ResourceNotFoundException;
+import com.seb.floreriaeleclipse.exceptions.StockInsuficienteException;
 import com.seb.floreriaeleclipse.mappers.PedidoMapper;
 import com.seb.floreriaeleclipse.repositories.DetallePedidoRepository;
 import com.seb.floreriaeleclipse.repositories.FlorRepository;
@@ -33,6 +34,13 @@ public class PedidoServiceImplementation implements PedidoService {
             Flor flor = florRepository.findById(pedidoDto.getDetalle().get(i).getFlorId()).orElseThrow(
                     () -> new ResourceNotFoundException("Flor no encontrado " )
             );
+            if (flor.getStock() < pedidoDto.getDetalle().get(i).getCantidad()) {
+                throw new StockInsuficienteException("No hay suficiente stock para la flor: " + flor.getNombre());
+            }
+            // Restar la cantidad al stock
+            flor.setStock(flor.getStock() - pedidoDto.getDetalle().get(i).getCantidad());
+            // Guardar los cambios
+            florRepository.save(flor);
             newPedido.getDetallePedidos().get(i).setFlor(flor);
             newPedido.getDetallePedidos().get(i).calcularSubtotal();
         }
